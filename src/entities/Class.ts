@@ -1,4 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
+import { Subject } from './Subject'
 import { Video } from './Video'
 
 @Entity('classes')
@@ -9,6 +17,12 @@ export class Class {
   @Column({ type: 'text' })
   name: string
 
+  @Column({ type: 'text', nullable: true })
+  description: string
+
   @OneToMany(() => Video, (Video) => Video.class)
   videos: Video[]
+
+  @ManyToMany(() => Subject, (Subject) => Subject.classes)
+  subjects: Class[]
 }
